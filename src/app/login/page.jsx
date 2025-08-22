@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import UserInfo from "../components/UserInfo";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
+    // Sign in using credentials provider
     const result = await signIn("credentials", {
       redirect: false,
       email,
@@ -23,14 +25,17 @@ export default function Login() {
     if (result.error) {
       setError(result.error);
     } else {
-      router.push("/dashboard");
+      // Redirect to products page after successful login
+      router.push("/products");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-amber-200 via-white to-amber-200 px-4">
       <div className="w-full max-w-sm bg-white rounded-3xl shadow-lg p-6">
-        <h1 className="text-3xl font-bold text-amber-600 text-center mb-5">Login</h1>
+        <h1 className="text-3xl font-bold text-amber-600 text-center mb-5">
+          Please Login
+        </h1>
 
         {error && (
           <p className="text-red-500 text-sm text-center mb-4">{error}</p>
@@ -42,7 +47,7 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
             required
           />
           <input
@@ -50,22 +55,19 @@ export default function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
             required
           />
-<UserInfo></UserInfo>
+
           <button
             type="submit"
             className="w-full py-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white rounded-xl font-medium hover:from-amber-500 hover:to-amber-600 transition"
-           onClick={()=> signIn()}
-           >
+          >
             Login
           </button>
         </form>
 
-        <div className="mt-4 text-center text-gray-500 text-sm">
-          Or login with
-        </div>
+        <div className="mt-4 text-center text-gray-500 text-sm">Or login with</div>
 
         <div className="flex justify-center gap-3 mt-3">
           <button className="p-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition text-sm">
@@ -78,9 +80,9 @@ export default function Login() {
 
         <p className="mt-4 text-center text-gray-500 text-sm">
           Don’t have an account?{" "}
-          <a href="/register" className="text-amber-600 hover:underline">
+          <Link href="/register" className="text-amber-600 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

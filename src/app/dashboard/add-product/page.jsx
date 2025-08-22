@@ -10,7 +10,7 @@ export default function AddProduct() {
     stock: "",
     shortDescription: "",
     description: "",
-    driver: "",
+
     weight: "",
     warranty: "",
     codec: "",
@@ -34,7 +34,7 @@ export default function AddProduct() {
       shortDescription: formData.shortDescription,
       description: formData.description,
       specs: {
-        Driver: formData.driver,
+        
         Weight: formData.weight,
         Warranty: formData.warranty,
         Codec: formData.codec,
@@ -43,7 +43,7 @@ export default function AddProduct() {
     };
 
     try {
-      const res = await fetch("/api/products", {
+      const res = await fetch("/api/items", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
@@ -59,7 +59,7 @@ export default function AddProduct() {
           stock: "",
           shortDescription: "",
           description: "",
-          driver: "",
+        
           weight: "",
           warranty: "",
           codec: "",
@@ -156,14 +156,7 @@ export default function AddProduct() {
           {/* Specs */}
           <h3 className="text-lg font-semibold mt-4">Specifications</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="driver"
-              placeholder="Driver"
-              value={formData.driver}
-              onChange={handleChange}
-              className="input input-bordered w-full p-3 rounded-lg border"
-            />
+          
             <input
               type="text"
               name="weight"

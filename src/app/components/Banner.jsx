@@ -18,7 +18,7 @@ export default function Banner() {
 
       {/* Content */}
       <div className="relative text-center text-white max-w-3xl px-6 animate-fadeIn">
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+        <h1 className="text-3xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">
           Discover Our <span className="text-amber-400">Exclusive</span> Products
         </h1>
         <p className="text-lg md:text-xl mb-8 text-gray-200">

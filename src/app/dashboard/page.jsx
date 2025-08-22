@@ -3,18 +3,28 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Home, Package, PlusCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
-  const IsLoggedIn = true;
+  const { data: session, status } = useSession(); // check session
   const router = useRouter();
 
   const handleAddProduct = () => {
-    if (IsLoggedIn) {
+    if (session) {
       router.push("/dashboard/add-product");
     } else {
-      router.push("/");
+      router.push("/login"); // redirect unauthenticated users to login
     }
   };
+
+  // Optional: show loading state while session is being fetched
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-amber-500 text-xl">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-b from-amber-200 via-white to-amber-200">
@@ -34,12 +44,12 @@ export default function Dashboard() {
           >
             <Package className="w-5 h-5 text-amber-600" /> Products
           </Link>
-          <Link
-            href="/dashboard/add-product"
+          <button
+            onClick={handleAddProduct}
             className="flex items-center gap-2 p-2 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition"
           >
             <PlusCircle className="w-5 h-5" /> Add Product
-          </Link>
+          </button>
         </nav>
       </aside>
 
@@ -71,7 +81,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Optional Section */}
+        {/* Quick Actions */}
         <div className="mt-8 p-6 bg-white rounded-2xl shadow hover:shadow-md transition">
           <h3 className="text-xl font-semibold mb-4">Quick Actions</h3>
           <div className="flex gap-4 flex-wrap">
