@@ -342,18 +342,26 @@ import Link from "next/link";
 
 
 
+export const getPosts = async () => {
+    const res = await fetch ('https://jsonplaceholder.typicode.com/posts');
+    const data = await res.json();
+    return data;
+}
 
 
 
 
 
 
-
-export default function Products() {
+export default  function Products() {
+    // const posts = getPosts(); 
+    // console.log(posts);
     return (
         <div className="p-6 max-w-7xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">Products</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+               
+
                 {products.map((p) => (
                     <div
                         key={p.id}
